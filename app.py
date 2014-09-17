@@ -1,9 +1,13 @@
 from flask import Flask
 from flask import jsonify
-from flask import Response
+from flask import render_template
 
 from movies_scraper import *
 app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return render_template('info.html')
 
 @app.route('/all')
 def serve_json():
