@@ -27,3 +27,32 @@ def movies_scrape():
         except Exception, e:
             print "%s %s" %("problem ", e)
     return list
+
+def get_movie_list():
+    list = []
+    url = 'http://www.themoviescuracao.com/'
+    html = urllib2.urlopen(url).read()
+    scrape = BeautifulSoup(html)
+    for item in  scrape.select('#schedule li'):
+        try:
+            it = item.select('h2')[0]
+            list.append(it.text)
+        except:
+            pass
+    return list
+
+
+def movies_scrape_generator():
+    list = []
+    url = 'http://www.themoviescuracao.com/'
+    html = urllib2.urlopen(url).read()
+    scrape = BeautifulSoup(html)
+    for item in  scrape.select('#schedule li'):
+        try:
+            it = item.select('h2')[0]
+            yield list.append({
+                'Movie' : it.text,
+                'rating' : get_rating(it.text, year=2014),
+            })
+        except Exception, e:
+            print "%s %s" %("problem ", e)
