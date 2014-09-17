@@ -5,7 +5,7 @@ from flask import Response
 from movies_scraper import *
 app = Flask(__name__)
 
-@app.route('/')
+@app.route('/all')
 def serve_json():
     """
     Scrape movies on : http://www.themoviescuracao.com
@@ -16,7 +16,7 @@ def serve_json():
 
     return jsonify(movies_scrape())
 
-@app.route('/<search>')
+@app.route('/s/<search>')
 def search_movie(search):
     return jsonify({
         "movie" : search,

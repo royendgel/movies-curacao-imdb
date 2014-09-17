@@ -1,9 +1,9 @@
 import urllib2
 import imdb
 from bs4 import BeautifulSoup
-connection = imdb.IMDb()
 def get_rating(title, year=""):
     try:
+        connection = imdb.IMDb()
         s_result = connection.search_movie(title + str(year))
         first_movie = s_result[0]
         connection.update(first_movie)
@@ -19,6 +19,7 @@ def movies_scrape():
     for item in  scrape.select('#schedule li'):
         try:
             it = item.select('h2')[0]
+            print it
             list.append({
                 'Movie' : it.text,
                 'rating' : get_rating(it.text, year=2014),
